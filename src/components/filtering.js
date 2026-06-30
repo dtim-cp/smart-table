@@ -1,7 +1,7 @@
 import {createComparison, defaultRules} from "../lib/compare.js";
 
 // @todo: #4.3 — настроить компаратор
-const compare = createComparison(defaultRules);
+//const compare = createComparison(defaultRules);
 
 export function initFiltering(elements, indexes) {
     // @todo: #4.1 — заполнить выпадающие списки опциями
@@ -16,12 +16,22 @@ export function initFiltering(elements, indexes) {
 
     return (data, state, action) => {
         // @todo: #4.2 — обработать очистку поля
+        //if (action && action.name === 'clear') {
+          //  state[action.value] = '';
+            //elements[action.value].value = '';
+        //}
+
         if (action && action.name === 'clear') {
-            state[action.value] = '';
-            elements[action.value].value = '';
+            const parent = action.parentElement;
+            const input = parent.querySelector('input');
+            if (input) {
+                input.value = '';
+                const fieldName = action.getAttribute('data-field');
+                state[fieldName] = '';
+            }
         }
 
-        //const compare = createComparison(defaultRules);
+        const compare = createComparison(defaultRules);
 
         // @todo: #4.5 — отфильтровать данные используя компаратор
         return data.filter(row => compare(row, state));
