@@ -8,14 +8,20 @@ export function initFiltering(elements, indexes) {
     Object.keys(indexes).forEach((elementName) => {
         elements[elementName].append(...Object.values(indexes[elementName]).map(name => {
             const option = document.createElement("option");
-            option.textContent = name;
             option.value = name;
+            option.textContent = name;
             return option;
-        }))
+        }));
     })
 
     return (data, state, action) => {
         // @todo: #4.2 — обработать очистку поля
+        if (action && action.name === 'clear') {
+            state[action.value] = '';
+            elements[action.value].value = '';
+        }
+
+        //const compare = createComparison(defaultRules);
 
         // @todo: #4.5 — отфильтровать данные используя компаратор
         return data.filter(row => compare(row, state));
