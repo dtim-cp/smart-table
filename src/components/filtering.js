@@ -1,5 +1,5 @@
 export function initFiltering(elements) {
-  const updateIndexes = (elements, indexes) => {
+    const updateIndexes = (elements, indexes) => {
         Object.keys(indexes).forEach((elementName) => {
             elements[elementName].append(...Object.values(indexes[elementName]).map(name => {
                 const el = document.createElement('option');
@@ -13,8 +13,8 @@ export function initFiltering(elements) {
     const applyFiltering = (query, state, action) => {
       // @todo: #4.2 — обработать очистку поля
       if (action && action.name === 'clear') {
-            let parentElement = action.parentElement
-            let inputElement = parentElement.querySelector('.input')
+            const parentElement = action.parentElement
+            const inputElement = parentElement.querySelector('.input')
             inputElement.value = ''
             inputElement.dispatchEvent(new Event('input', { bubbles: true }));
             state[action.dataset.field] = ''
